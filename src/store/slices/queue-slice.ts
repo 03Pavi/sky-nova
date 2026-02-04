@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Job {
   id: string;
-  type: "text" | "image" | "audio" | "lipsync";
+  type: "text" | "image" | "audio" | "lipsync" | "talking-avatar";
   status: "queued" | "processing" | "completed" | "failed";
   createdAt: string; // ISO string
   prompt?: string;

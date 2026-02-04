@@ -15,12 +15,8 @@ export async function POST(req: NextRequest) {
     }
 
     const response = await hf.textToVideo({
-      model: "Skywork/SkyReels-V2-DF-14B-540P",
+      model: "ali-vilab/text-to-video-ms-1.7b",
       inputs: prompt,
-      parameters: {
-        num_inference_steps: 25,
-        guidance_scale: 7.5,
-      }
     });
 
     return new NextResponse(response, {

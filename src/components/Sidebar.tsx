@@ -22,7 +22,7 @@ const sidebarItems = [
   { icon: Type, label: "Text to Video", href: "/text" },
   { icon: ImageIcon, label: "Image to Video", href: "/image" },
   { icon: Mic, label: "Audio to Video", href: "/audio" },
-  { icon: Users, label: "Lip Sync", href: "/lipsync" },
+  { icon: Users, label: "Talking Avatar", href: "/lipsync" },
 ];
 
 export function Sidebar() {

@@ -8,20 +8,18 @@ import { motion } from "framer-motion";
 import { Video, ArrowRight, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
 
     setLoading(true);
     // Simulate login delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    dispatch(setUser(email.split("@")[0])); // Use part of email as name
+    dispatch(setUser("Guest"));
     router.push("/");
     setLoading(false);
   };
@@ -58,18 +56,6 @@ export default function LoginPage() {
           onSubmit={handleLogin}
           className="space-y-6 max-w-sm"
         >
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-300">Email Address</label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all placeholder:text-gray-600"
-              placeholder="name@example.com"
-            />
-          </div>
-
           <button
             type="submit"
             disabled={loading}

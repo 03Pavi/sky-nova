@@ -8,8 +8,8 @@ import { addJob, updateJobStatus } from "@/store/slices/queue-slice";
 import { v4 as uuidv4 } from "uuid";
 import QueueStatus from "@/components/QueueStatus";
 
-export default function LipSyncPage() {
-  const [video, setVideo] = useState<File | null>(null);
+export default function TalkingAvatarPage() {
+  const [image, setImage] = useState<File | null>(null);
   const [audio, setAudio] = useState<File | null>(null);
   const [currentResult, setCurrentResult] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ export default function LipSyncPage() {
   const jobs = useAppSelector((state) => state.queue.jobs);
 
   const handleGenerate = async () => {
-    if (!video || !audio) return;
+    if (!image || !audio) return;
 
     const jobId = uuidv4();
     setLoading(true);
@@ -26,14 +26,14 @@ export default function LipSyncPage() {
 
     dispatch(addJob({
       id: jobId,
-      type: "lipsync",
+      type: "talking-avatar",
       status: "processing",
       createdAt: new Date().toISOString(),
     }));
 
     try {
       const formData = new FormData();
-      formData.append("video", video);
+      formData.append("image", image);
       formData.append("audio", audio);
 
       const response = await fetch("/api/lipsync", {
@@ -58,8 +58,8 @@ export default function LipSyncPage() {
   return (
     <>
       <VideoGenerator
-        title="Lip Sync"
-        description="Sync any video's lip movements to a target audio track using SkyReels V1."
+        title="Talking Avatar"
+        description="Animate a face from an image to speak your audio track."
         isLoading={loading}
         onGenerate={handleGenerate}
         resultUrl={currentResult}
@@ -67,13 +67,13 @@ export default function LipSyncPage() {
         <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-400 mb-2">
-              Source Video (Face)
+              Source Image (Face)
             </label>
             <FileUpload
-              label="Upload source video"
-              accept={{ 'video/*': ['.mp4', '.mov', '.webm'] }}
-              onFileSelect={setVideo}
-              selectedFile={video}
+              label="Upload portrait image"
+              accept={{ 'image/*': ['.jpg', '.jpeg', '.png'] }}
+              onFileSelect={setImage}
+              selectedFile={image}
             />
           </div>
 
